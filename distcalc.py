@@ -6,11 +6,11 @@ api = Api(distcalc)
 
 circles = [
 	{
-		"number": 1,
+		"id": 1,
 		"radius": 2
 	},
 	{
-		"number": 2,
+		"id": 2,
 		"radius": 4
 	}
 ]
@@ -24,14 +24,14 @@ class distance(Resource):
 	
 	def post(self, radius):
 		parser = reqparse.RequestParser()
-		parser.add_argument("number")
+		parser.add_argument("id")
 		args = parser.parse_args()
 		
 		for circle in circles:
 			if(radius == circle["radius"]):
 				return "exists", 400
 		circle = {
-			"number": args["number"],
+			"id": args["id"],
 			"radius": radius
 		}
 		
@@ -41,4 +41,3 @@ class distance(Resource):
 api.add_resource(distance, "/circle/<int:radius>")
 
 distcalc.run(debug=True)
-
